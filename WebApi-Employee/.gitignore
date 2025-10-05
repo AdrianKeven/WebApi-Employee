@@ -1,0 +1,66 @@
+## ====== Compilação ======
+bin/
+obj/
+out/
+publish/
+Debug/
+Release/
+
+## ====== IDEs e Configurações Locais ======
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## ====== Logs e Temporários ======
+*.log
+*.tlog
+*.tmp
+*.temp
+*.db
+*.db-wal
+*.db-shm
+
+## ====== Sistema Operacional ======
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+## ====== Dependências e Cache ======
+packages/
+*.cache
+*.bak
+*.old
+
+## ====== Publicação e Build ======
+*.publish.xml
+*.pubxml
+*.pubxml.user
+project.lock.json
+project.fragment.lock.json
+
+## ====== Configurações Sensíveis ======
+appsettings.Development.json
+appsettings.Local.json
+appsettings.*.json
+*.env
+Key.cs
+
+## ====== Dados e Armazenamento ======
+Storage/
+
+## ====== Testes e Cobertura ======
+TestResults/
+*.coverage
+*.coveragexml
+
+## ====== Arquivos HTTP (requisições do VS) ======
+*.http
+
+## ====== JetBrains Rider ======
+.idea/
+*.DotSettings.user
