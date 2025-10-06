@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using WebApi_Employee.Domain.Model;
+using WebApi_Employee.Domain.Model.EmployeeAggregate;
 
 namespace WebApi_Employee.Application.Services
 {
@@ -15,7 +15,7 @@ namespace WebApi_Employee.Application.Services
             {
                 Subject = new System.Security.Claims.ClaimsIdentity(new[]
                 {
-                    new Claim("employeeId", employee.id.ToString()),
+                    new Claim("employeeId", employee.Id.ToString()),
                 }),
                 Expires = DateTime.UtcNow.AddHours(2),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),SecurityAlgorithms.HmacSha256Signature

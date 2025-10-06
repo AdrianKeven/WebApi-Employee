@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using WebApi_Employee.Domain.Model.EmployeeAggregate;
 
 namespace WebApi_Employee.Application.Mapping
 {
@@ -6,7 +7,7 @@ namespace WebApi_Employee.Application.Mapping
     {
         public DomainToDTOMapping()
         {
-            CreateMap<Domain.Model.Employee, Domain.DTOs.EmployeeDTO>();
+            CreateMap<Employee, Domain.DTOs.EmployeeDTO>();
         }
     }
 }

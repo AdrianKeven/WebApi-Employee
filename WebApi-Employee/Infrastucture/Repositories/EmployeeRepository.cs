@@ -1,5 +1,5 @@
 ﻿using WebApi_Employee.Domain.DTOs;
-using WebApi_Employee.Domain.Model;
+using WebApi_Employee.Domain.Model.EmployeeAggregate;
 
 namespace WebApi_Employee.Infrastucture.Repositories
 {
@@ -19,9 +19,9 @@ namespace WebApi_Employee.Infrastucture.Repositories
                 .Select(e =>
                 new EmployeeDTO()
                 {
-                    Id = e.id,
-                    Name = e.name,
-                    Photo = e.photo
+                    Id = e.Id,
+                    Name = e.Name,
+                    Photo = e.Photo
 
                 }).ToList();
         }

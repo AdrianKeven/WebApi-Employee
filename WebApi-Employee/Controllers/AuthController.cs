@@ -14,7 +14,7 @@ namespace WebApi_Employee.Controllers
         { 
             if (username == "admin" && password == "admin") 
             {
-                var token = TokenServices.GenerateToken(new Domain.Model.Employee("admin", 0, ""));
+                var token = TokenServices.GenerateToken(new Domain.Model.EmployeeAggregate.Employee("admin", 0, ""));
                 return Ok(token);
             }
 

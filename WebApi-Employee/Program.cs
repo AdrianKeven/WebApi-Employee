@@ -1,10 +1,12 @@
+using Asp.Versioning.ApiExplorer;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using WebApi_Employee.Application.Mapping;
-using WebApi_Employee.Domain.Model;
+using WebApi_Employee.Domain.Model.EmployeeAggregate;
 using WebApi_Employee.Infrastucture.Repositories;
+using WebApi_Employee.SwaggerConfig;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,6 +47,9 @@ builder.Services.AddSwaggerGen(s =>
         new List<string>()
         }
     });
+
+    s.OperationFilter<SwaggerDefaultValues>(); // Adiciona os valores padrao do Swagger
+
 });
 
 builder.Services.AddApplicationInsightsTelemetry(); 
@@ -73,6 +78,28 @@ builder.Services.AddAuthentication(x =>
     };
 });
 
+builder.Services.AddApiVersioning()
+    .AddMvc()
+    .AddApiExplorer(options =>
+    {
+        options.GroupNameFormat = "'v'VVV"; // Formato do nome do grupo de versao
+        options.SubstituteApiVersionInUrl = true; // Substitui a versao na URL
+    });
+
+builder.Services.ConfigureOptions<ConfigureSwaggerGenOptions>();
+
+// Configuracao do CORS => Permite que qualquer origem acesse a API, para fins de teste
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", police =>
+    {
+         police.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -80,14 +107,21 @@ if (app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/error-development");
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+    { 
+        var version = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+        foreach (var description in version.ApiVersionDescriptions)
+        {
+        options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",$"ApiEmployess -{description.GroupName.ToUpper()}");
+        }
+    });
 } 
 else
 {
     app.UseExceptionHandler("/error");
 }
 
-    app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

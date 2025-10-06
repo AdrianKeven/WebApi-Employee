@@ -1,13 +1,15 @@
-﻿using AutoMapper;
+﻿using Asp.Versioning;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApi_Employee.Application.ViewModel;
-using WebApi_Employee.Domain.Model;
+using WebApi_Employee.Domain.Model.EmployeeAggregate;
 
 namespace WebApi_Employee.Controllers
 {
+    [ApiVersion(1.0)]
     [ApiController]
-    [Route("api/v1/employee")]
+    [Route("api/v{version:apiVersion}/employee")]
     public class EmployeeController : ControllerBase
     {
         private readonly IEmployeeRepository _employeeRepository;
@@ -47,20 +49,20 @@ namespace WebApi_Employee.Controllers
         public IActionResult DownloadPhoto(int id)
         {
             var employee = _employeeRepository.Get(id);
-            if (employee == null || string.IsNullOrEmpty(employee.photo))
+            if (employee == null || string.IsNullOrEmpty(employee.Photo))
             {
                 _logger.LogError("Erro funcionario nao encontrado, foto nula");
                 return NotFound();
 
             } 
-            else if (!System.IO.File.Exists(employee.photo))
+            else if (!System.IO.File.Exists(employee.Photo))
             {
                 _logger.LogError("Foto nao existe no sistema");
                 return NotFound();
             }
 
-                var photoBytes = System.IO.File.ReadAllBytes(employee.photo);
-            var fileName = Path.GetFileName(employee.photo);
+                var photoBytes = System.IO.File.ReadAllBytes(employee.Photo);
+            var fileName = Path.GetFileName(employee.Photo);
             return File(photoBytes, "image/png", fileName);
         }
 

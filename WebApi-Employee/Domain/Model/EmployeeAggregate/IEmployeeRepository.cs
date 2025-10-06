@@ -1,6 +1,6 @@
 ﻿using WebApi_Employee.Domain.DTOs;
 
-namespace WebApi_Employee.Domain.Model
+namespace WebApi_Employee.Domain.Model.EmployeeAggregate
 {
     public interface IEmployeeRepository
     {
