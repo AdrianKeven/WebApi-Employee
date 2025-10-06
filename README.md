@@ -10,6 +10,8 @@
 O **WebApi-Employee** é uma **API RESTful** desenvolvida em **C# (.NET 8)** para o gerenciamento de funcionários em um sistema de **Recursos Humanos (RH)**.  
 O sistema fornece um **CRUD completo**, autenticação segura com **JWT**, versionamento de endpoints e integração com **PostgreSQL**, oferecendo uma base sólida para aplicações empresariais.
 
+> ⚠️ Observação: Para testes iniciais, a **autenticação JWT** está configurada com usuário `admin` e senha `admin`.
+
 ---
 
 ## 🚀 Funcionalidades
@@ -35,32 +37,47 @@ O sistema fornece um **CRUD completo**, autenticação segura com **JWT**, versi
 ## 🔧 Como executar o projeto
 
 ### 1️⃣ Clonar o repositório
+```bash
 git clone https://github.com/AdrianKeven/WebApi-Employee.git
+```
 
 ### 2️⃣ Acessar a pasta do projeto
+```bash
 cd WebApi-Employee
+```
 
 ### 3️⃣ Configurar o banco de dados
-No arquivo appsettings.json, configure a string de conexão com seu banco PostgreSQL:
+No arquivo `appsettings.json`, configure a string de conexão com seu banco PostgreSQL:
 
-"ConnectionStrings": {
-  "DefaultConnection": "Host=localhost;Port=5432;Database=WebApiEmployee;Username=postgres;Password=suasenha"
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Host=localhost;Port=5432;Database=WebApiEmployee;Username=postgres;Password=SENHA_AQUI"
+  }
 }
+```
 
 ### 4️⃣ Executar as migrações
+```bash
 dotnet ef database update
+```
 
 ### 5️⃣ Rodar o projeto
+```bash
 dotnet run
+```
 
 Acesse o Swagger da API:
+
+```bash
 https://localhost:5001/swagger
+```
 
 ---
 
 ## 🧠 Conceitos aplicados
 - Arquitetura RESTful  
-- Autenticação e Autorização JWT (senha: admin, usuário admin)
+- Autenticação e Autorização JWT  
 - Versionamento de APIs  
 - Mapeamento objeto-relacional com EF Core  
 - Documentação interativa via Swagger  
@@ -76,13 +93,13 @@ https://localhost:5001/swagger
 ---
 
 ## 👨‍💻 Autor
-Adrian Keven Amaro Santo  
+**Adrian Keven Amaro Santo**  
 Desenvolvedor de Sistemas de Informação  
 
-📧 adriankevenas@gmail.com  
-🌐 https://github.com/AdrianKeven
+📧 [adriankevenas@gmail.com](mailto:adriankevenas@gmail.com)  
+🌐 [GitHub - AdrianKeven](https://github.com/AdrianKeven)
 
 ---
 
 ### 🏷️ Licença
-Este projeto está licenciado sob a MIT License — sinta-se à vontade para usar, modificar e contribuir.
+Este projeto está licenciado sob a **MIT License** — sinta-se à vontade para usar, modificar e contribuir.
