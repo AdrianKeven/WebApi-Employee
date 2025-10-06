@@ -77,7 +77,7 @@ https://localhost:5001/swagger
 
 ## 🧠 Conceitos aplicados
 - Arquitetura RESTful  
-- Autenticação e Autorização JWT  
+- Autenticação e Autorização JWT (usuário admin, senha admin) 
 - Versionamento de APIs  
 - Mapeamento objeto-relacional com EF Core  
 - Documentação interativa via Swagger  
