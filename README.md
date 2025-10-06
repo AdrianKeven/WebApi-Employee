@@ -47,7 +47,7 @@ cd WebApi-Employee
 ```
 
 ### 3️⃣ Configurar o banco de dados
-No arquivo `appsettings.json`, configure a string de conexão com seu banco PostgreSQL:
+No arquivo `ConnectionContext.cs`, configure a string de conexão com seu banco PostgreSQL:
 
 ```json
 {
