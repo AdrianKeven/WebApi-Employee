@@ -93,8 +93,8 @@ https://localhost:5001/swagger
 ---
 
 ## 👨‍💻 Autor
-**Adrian Keven Amaro Santo**  
-Desenvolvedor de Sistemas de Informação  
+**Ádrian Keven Amaro dos Santos**  
+Estudante de Sistemas de Informação  
 
 📧 [adriankevenas@gmail.com](mailto:adriankevenas@gmail.com)  
 🌐 [GitHub - AdrianKeven](https://github.com/AdrianKeven)
