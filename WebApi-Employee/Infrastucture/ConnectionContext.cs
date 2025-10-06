@@ -17,7 +17,7 @@ namespace WebApi_Employee.Infrastucture
                 "Port=5433;" +
                 "Database=rh_sample;" +
                 "User Id=postgres;" +
-                "Password=adrian123;");
+                "Password=SUA_SENHA;");
 
         }
     }
