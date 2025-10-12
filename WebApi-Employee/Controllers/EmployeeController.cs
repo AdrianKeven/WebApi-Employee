@@ -9,7 +9,7 @@ namespace WebApi_Employee.Controllers
 {
     [ApiVersion(1.0)]
     [ApiController]
-    [Route("api/v{version:apiVersion}/employee")]
+    [Route("api/v{version:apiVersion}/employees")]
     public class EmployeeController : ControllerBase
     {
         private readonly IEmployeeRepository _employeeRepository;
@@ -45,7 +45,7 @@ namespace WebApi_Employee.Controllers
         // POST api/v1/employee/{id}/download => Baixa a foto do funcionário
         [Authorize]
         [HttpPost]
-        [Route("{id}/download")]
+        [Route("{id}/photo")]
         public IActionResult DownloadPhoto(int id)
         {
             var employee = _employeeRepository.Get(id);
@@ -61,7 +61,7 @@ namespace WebApi_Employee.Controllers
                 return NotFound();
             }
 
-                var photoBytes = System.IO.File.ReadAllBytes(employee.Photo);
+            var photoBytes = System.IO.File.ReadAllBytes(employee.Photo);
             var fileName = Path.GetFileName(employee.Photo);
             return File(photoBytes, "image/png", fileName);
         }
@@ -91,6 +91,76 @@ namespace WebApi_Employee.Controllers
             }
 
             return Ok(employeeDto);
+        }
+
+        // DELETE api/v1/employee/{id} => Remove um funcionário pelo ID 
+        [Authorize]
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var employee = _employeeRepository.Get(id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+            // Deleta a foto do funcionário, se existir
+            if (!string.IsNullOrEmpty(employee.Photo) && System.IO.File.Exists(employee.Photo))
+            {
+                System.IO.File.Delete(employee.Photo);
+            }
+            
+            _employeeRepository.Remove(id);
+            return Ok();
+        }
+
+        // Atualiza a idade e a foto do funcionario
+        [Authorize]
+        [HttpPut]
+        [Route("{id}")]
+        public IActionResult Atualizar(int id, [FromForm] EmployeeViewModel employeeViewModel)
+        {
+            var employee = _employeeRepository.Get(id);
+
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            // Atualiza apenas se veio um novo nome
+            if (!string.IsNullOrWhiteSpace(employeeViewModel.Name))
+            {
+                employee.Name = employeeViewModel.Name;
+            }
+
+            // Atualiza apenas se veio uma nova idade (pode ajustar lógica conforme sua validação)
+            if (employeeViewModel.Age > 0)
+            {
+                employee.Age = employeeViewModel.Age;
+            }
+
+            // Atualiza apenas se veio uma nova foto
+            if (employeeViewModel.Photo != null)
+            {
+                var uploadsFolder = Path.Combine("Storage");
+                if (!Directory.Exists(uploadsFolder))
+                {
+                    Directory.CreateDirectory(uploadsFolder);
+                }
+
+                var photoPath = Path.Combine(uploadsFolder, employeeViewModel.Photo.FileName);
+
+                using (var stream = new FileStream(photoPath, FileMode.Create))
+                {
+                    employeeViewModel.Photo.CopyTo(stream);
+                }
+
+                employee.Photo = photoPath;
+            }
+
+            _employeeRepository.Update(employee);
+
+            return Ok(employee);
         }
     }
 }

@@ -30,5 +30,21 @@ namespace WebApi_Employee.Infrastucture.Repositories
         {
             return _context.Employees.Find(id);
         }
+
+        public void Remove(int id)
+        {
+            var employee = _context.Employees.Find(id);
+            if (employee != null)
+            {
+                _context.Employees.Remove(employee);
+                _context.SaveChanges();
+            }
+        }
+
+        public void Update(Employee employee)
+        {
+            _context.Employees.Update(employee);
+            _context.SaveChanges();
+        }
     }
 }

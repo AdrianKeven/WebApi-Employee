@@ -7,5 +7,7 @@ namespace WebApi_Employee.Domain.Model.EmployeeAggregate
         void Add(Employee employee);
         List<EmployeeDTO> Get(int pageNumber, int pageQuantity);
         Employee? Get(int id);
+        void Remove(int id);
+        void Update(Employee employee);
     }
 }

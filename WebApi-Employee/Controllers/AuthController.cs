@@ -4,7 +4,7 @@ using WebApi_Employee.Application.Services;
 namespace WebApi_Employee.Controllers
 {
     [ApiController]
-    [Route("api/v1/auth")]
+    [Route("api/auth")]
     public class AuthController : Controller
     {
         // POST api/v1/auth => Autentica o usuário e retorna um token JWT
